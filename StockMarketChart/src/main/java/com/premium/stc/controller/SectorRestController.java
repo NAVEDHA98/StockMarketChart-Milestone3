@@ -1,0 +1,45 @@
+package com.premium.stc.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.premium.stc.model.Company;
+import com.premium.stc.model.IpoPlaned;
+import com.premium.stc.model.StockPrice;
+import com.premium.stc.service.CompanyService;
+import com.premium.stc.service.IpoPlanedService;
+import com.premium.stc.service.StockPriceService;
+
+@RestController
+public class SectorRestController {
+      @Autowired
+      CompanyService companyService;
+      
+      @Autowired
+      StockPriceService stockPriceService;
+      
+      @Autowired
+      IpoPlanedService ipoPlanedService;
+	
+	  @GetMapping("/companyList/{name}")
+      public List<Company> getCompanyList(@PathVariable("name") String stockName) throws Exception
+      {
+		  return companyService.getCompanyListSector(stockName);
+      }
+	  
+	  @GetMapping("/stockPriceList/{companyName}")
+	  public List<StockPrice> getStockPriceList(@PathVariable("companyName") String companyName) throws Exception
+	  {
+		  return stockPriceService.getStockPriceCompany(companyName);
+	  }
+	  
+	  @GetMapping("/IpoPlanedList/{companyName}")
+	  public List<IpoPlaned> getIpoPlanedList(@PathVariable("companyName") String companyName) throws Exception
+	  {
+		  return ipoPlanedService.getIpoPlanedList(companyName);
+	  }
+}
